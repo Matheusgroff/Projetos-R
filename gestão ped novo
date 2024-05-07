@@ -6,7 +6,7 @@ alunos <- data.frame(
   nome = c("Aluno1", "Aluno2", "Aluno3", "Aluno4", 
            "Aluno5", "Aluno6"),
   idade = c(10, 9, 9, 9, 9,9),
-  nota = c(6.8, 9.4, 7.3, 7.1, 7.3,7.3)
+  nota = c(5, 6, 7, 8, 9,10)
 )
 
 # Modelo de regressão linear
@@ -26,5 +26,5 @@ print(previsao_notas)
 ggplot(alunos, aes(x = idade, y = nota, label = nome)) +
   geom_point() +
   geom_text(nudge_x = 0.2, nudge_y = 0.2, angle = 45, hjust = 1) + # Adicionando rotação aos nomes
-  labs(x = "Idade", y = "Nota", title = "4o Ano Sem 1") +
+  labs(x = "Idade", y = "Nota", title = "INSERT GRADE AND BIMESTER") +
   theme_minimal()
