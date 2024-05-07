@@ -1,0 +1,33 @@
+# Randomly generate student names
+set.seed(123)  # Set seed for reproducibility
+random_names <- c("Aluno1", "Aluno2"
+                  , "Aluno3", "Aluno4", "Aluno5", 
+                  "Aluno6")
+
+# Create a vector of student grades
+student_grades <- c(5, 6, 7, 8, 9, 10)
+
+# Create a bar plot of student grades
+barplot(
+  student_grades,
+  ylim = c(0, 10),
+  col = rainbow(length(student_grades)),
+  main = "Medias Turma",
+  xlab = "Alunos",
+  ylab = "Notas"
+)
+
+# Add random names above the bars
+bar_width <- diff(par("usr")[1:2]) / length(student_grades)
+text(
+  x = 1:length(student_grades),                 # x-coordinates of text
+  y = student_grades / 2,                        # y-coordinates of text (centered vertically)
+  labels = random_names,                         # random names
+  pos = ,                                       # position text above bars
+  cex = 0.8,                                     # text size
+  col = "black",                                 # text color
+  srt = 90,                                      # rotate text vertically
+  xpd = TRUE,                                    # allow text to go beyond plot limits
+  adj = ifelse(bar_width < 0.2, 0, 1)            # adjust text position based on bar width
+)
+
