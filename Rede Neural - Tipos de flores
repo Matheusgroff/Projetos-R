@@ -1,0 +1,46 @@
+install.packages("nnet")
+install.packages("caret")
+install.packages("dplyr")
+install.packages("ggplot2")
+install.packages("NeuralNetTools")
+
+library(ggplot2)
+library(nnet)
+library(caret)
+library(dplyr)
+library(NeuralNetTools)
+
+# Carregar o conjunto de dados iris
+data(iris)
+
+# Normalizar as variáveis numéricas
+normalize <- function(x) {
+  return ((x - min(x)) / (max(x) - min(x)))
+}
+
+iris_norm <- as.data.frame(lapply(iris[1:4], normalize))
+iris_norm$Species <- iris$Species
+
+set.seed(123)  # Para reprodutibilidade
+trainIndex <- createDataPartition(iris_norm$Species, p = .7, list = FALSE, times = 1)
+train_data <- iris_norm[ trainIndex,]
+test_data  <- iris_norm[-trainIndex,]
+
+# Treinar a rede neural com nnet
+nn <- nnet(Species ~ ., data = train_data, size = 5, maxit = 11, linout = FALSE)
+
+# Fazer previsões
+predictions <- predict(nn, test_data, type = "class")
+
+# Avaliar a acurácia
+actual_species <- test_data$Species
+accuracy <- sum(predictions == actual_species) / length(actual_species)
+print(paste("Acurácia: ", accuracy))
+
+# Função para visualizar a rede neural
+visualizar_rede_neural <- function(model) {
+  plotnet(model)
+}
+
+# Visualizar a rede neural
+visualizar_rede_neural(nn)
